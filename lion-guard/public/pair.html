@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LION GUARD Pair</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; text-align: center; background: #111; color: white; }
+    #qrcode { margin-top: 50px; }
+  </style>
+</head>
+<body>
+  <h1>LION GUARD QR Scanner</h1>
+  <p>Scan this QR with WhatsApp > Linked Devices</p>
+  <div id="qrcode">Waiting for QR...</div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.on("qr", (qr) => {
+      document.getElementById("qrcode").innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}">`;
+    });
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
+  </script>
+</body>
+</html>
